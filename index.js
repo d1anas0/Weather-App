@@ -1,4 +1,4 @@
-const api = `&APPID=5957690d29bedd4ef672f89ad65fecc9`;
+const api = `&APPID=`;
 const weatherData = placeOfInterest => fetch(`https://api.openweathermap.org/data/2.5/weather?&q=${placeOfInterest}&${api}&units=metric`)
     .then(response => response.json());
 
