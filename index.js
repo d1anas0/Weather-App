@@ -1,8 +1,8 @@
-// appID (need to remove before pushing to GitHub)
-const api = `SET APP ID HERE`;
+// appID - get this from https://home.openweathermap.org/users/sign_up, then enter into code immediately after `&APPID=_____________________. 
+const appId = `&APPID= `;
 
 // function to fetch weather info from openweathermap api
-const weatherData = placeOfInterest => fetch(`https://api.openweathermap.org/data/2.5/weather?&q=${placeOfInterest}&${api}&units=metric`)
+const weatherData = placeOfInterest => fetch(`https://api.openweathermap.org/data/2.5/weather?&q=${placeOfInterest}&${appId}&units=metric`)
     .then(response => response.json());
 
 // selection of animated icons (credit: https://codemyui.com/animated-weather-icons-in-css/)
