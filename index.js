@@ -1,5 +1,5 @@
 // appID (need to remove before pushing to GitHub)
-const api = `&APPID=21dc72b7e6e84b482e3570f63682c713`;
+const api = `SET APP ID HERE`;
 
 // function to fetch weather info from openweathermap api
 const weatherData = placeOfInterest => fetch(`https://api.openweathermap.org/data/2.5/weather?&q=${placeOfInterest}&${api}&units=metric`)
