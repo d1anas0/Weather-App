@@ -1,8 +1,11 @@
-const api = `&APPID=`;
+// appID (need to remove before pushing to GitHub)
+const api = `&APPID=21dc72b7e6e84b482e3570f63682c713`;
+
+// function to fetch weather info from openweathermap api
 const weatherData = placeOfInterest => fetch(`https://api.openweathermap.org/data/2.5/weather?&q=${placeOfInterest}&${api}&units=metric`)
     .then(response => response.json());
 
-const here = document.querySelector('#placeOfInterest');
+// selection of animated icons (credit: https://codemyui.com/animated-weather-icons-in-css/)
 const prettyIcons = { 
     '01d': `<div class="icon sunny">
                 <div class="sun">
@@ -97,7 +100,9 @@ const prettyIcons = {
                 <div class="cloud"></div>
             </div>`, 
 };
-    
+
+
+// getWeather function used to render the weatherReport
 const getWeather = (here, currentTemp, feelTemp, icon) => `
     <div>
         ${icon}
@@ -106,14 +111,22 @@ const getWeather = (here, currentTemp, feelTemp, icon) => `
     </div>
 `;
 
-const reportWeather = document.querySelector('#reportWeather');
-reportWeather.addEventListener('click', (event) => {
+// selecting the elements required
+const here = document.querySelector('#placeOfInterest');
+const letsGo = document.querySelector('#letsGo');
+const weatherReport = document.querySelector(".weatherReport");
+const error = document.querySelector("#error");
+
+// add event listener for the click event on the button
+letsGo.addEventListener('click', (event) => {
     event.preventDefault();
+    // getting city entered (placeOfInterest) from the text input field. 
     const placeOfInterest = here.value;
-    const response = document.querySelector("#response");
-    const icons = document.querySelector(".icons");
+    
+    // collating weather data for placeOfInterest entered
     weatherData(placeOfInterest)
         .then(weather => {
+            // collecting the data to be included in the response card HTML
             const here = weather.name;
                 console.log(here);
             const currentTemp = weather.main.temp;
@@ -122,14 +135,17 @@ reportWeather.addEventListener('click', (event) => {
                 console.log(feelsLike);
             const icon = prettyIcons[weather.weather[0].icon];
                 console.log(icon);
-        
+            
+            // create response card HTML
             const weatherHtml = getWeather(here, currentTemp, feelsLike, icon);
-            icons.innerHTML = weatherHtml;
-            response.textContent = '';
+            weatherReport.innerHTML = weatherHtml;
+            error.textContent = '';
         })
+
+        // placeOfInterest not recognised (error response)
         .catch(() => {
-            icons.innerHTML = '';
-            response.textContent = 'Where is that?! 🤔';
+            weatherReport.innerHTML = '';
+            error.textContent = 'Where is that?! 🤔';
         });
     here.value = '';
 });
